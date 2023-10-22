@@ -30,12 +30,12 @@ export const getOneUser = async (req, res) => {
 
         const { passwordHash, ...other } = user
 
-        res.json(other)
+        res.json(other._doc)
 
     } catch (err) {
         console.log(err)
         res.status(500).json({
-            message: 'Не удалось получить user'
+            message: 'Не удалось получить user`a'
         })
     }
 }

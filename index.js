@@ -53,7 +53,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
-api.post('/upload', upload.single('photo'), uploudFile)
+api.post('/upload', upload.single('file'), uploudFile)
 
 // auth
 

@@ -5,7 +5,7 @@ import UsersModel from "../models/users.js";
 export const getMyInvite = async (req, res) => {
     try {
 
-        const invite = await RequestModel.findOne({ receiverId: req.params.id })
+        const invite = await RequestModel.find({ receiverId: req.params.id })
 
         res.json(invite)
 
@@ -20,7 +20,7 @@ export const getMyInvite = async (req, res) => {
 export const getMyRequest = async (req, res) => {
     try {
 
-        const request = await RequestModel.findOne({ senderId: req.params.id })
+        const request = await RequestModel.find({ senderId: req.params.id })
 
         res.json(request)
 
