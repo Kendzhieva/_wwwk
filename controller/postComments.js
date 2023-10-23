@@ -26,7 +26,7 @@ export const getAllPostComments = async (req, res) => {
 export const getOnePostComment = async (req, res) => {
     try {
 
-        const postComment = await PostCommentsModel.findById(req.params.id)
+        const postComment = await PostCommentsModel.find(req.params.id)
 
         res.json(postComment)
 
@@ -46,10 +46,7 @@ export const addPostComment = async (req, res) => {
         const comment = await PostCommentsModel(req.body)
         await comment.save()
 
-        res.json({
-            message: "Вы записали comment на post",
-            status: "success"
-        })
+        res.json(comment)
 
     } catch (err) {
         res.status(404).json({
