@@ -23,6 +23,21 @@ export const getAllPosts = async (req, res) => {
     }
 }
 
+export const getAllPostsGroup = async (req, res) => {
+    try {
+
+        let posts = await PostsModel.find({ groupId: req.params.id })
+
+        res.json(posts)
+
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить post`ы group`ы'
+        })
+    }
+}
+
 export const getOnePost = async (req, res) => {
     try {
 

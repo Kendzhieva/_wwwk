@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const requestSchema = new mongoose.Schema({
+const requestGroupSchema = new mongoose.Schema({
     senderId: {
         type: String,
         required: true,
@@ -18,4 +18,4 @@ const requestSchema = new mongoose.Schema({
     timestamps: true
 })
 
-export default mongoose.model('request', requestSchema)
+export default mongoose.model('requestGroup', requestGroupSchema)

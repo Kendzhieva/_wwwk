@@ -13,9 +13,10 @@ import multer from 'multer'
 import uploudFile from "./services/uploudFile.js";
 import { v2 as cloudinary } from 'cloudinary';
 import { addImage, deleteImages, getAllImages, setLikeImage } from './controller/images.js';
-import { addPost, changeOnePost, deletePost, getAllPosts, getOnePost, setLikePost } from './controller/posts.js';
+import { addPost, changeOnePost, deletePost, getAllPosts, getAllPostsGroup, getOnePost, setLikePost } from './controller/posts.js';
 import { addPostComment, changePostComment, deletePostComment, getAllPostComments, getOnePostComment, setLikePostComment } from './controller/postComments.js';
 import { addRequest, callRequest, getMyInvite, getMyRequest } from './controller/request.js';
+import { changeGroup, createGroup, deleteGroup, getAllGroups, getGroupInfo, joinGroup, leaveGroup } from './controller/groups.js';
 
 const api = express()
 dotenv.config()  // Функция - для доступа к env файлам
@@ -78,6 +79,7 @@ api.patch('/images/like/:id', setLikeImage)
 
 // posts
 api.get('/posts', getAllPosts)
+api.get('/posts/group/:id', getAllPostsGroup)
 api.get('/posts/:id', getOnePost)
 api.post('/posts', checkAuth, addPost)
 api.patch('/posts/:id', changeOnePost)
@@ -97,6 +99,16 @@ api.post('/request', addRequest)
 api.get('/my/request/:id', getMyRequest)
 api.get('/my/invite/:id', getMyInvite)
 api.patch('/call/request/:id', callRequest)
+
+// group
+api.get('/groups', getAllGroups)
+api.get('/groups/:id', getGroupInfo)
+api.post('/groups', checkAuth, createGroup)
+api.patch('/groups/:id', changeGroup)
+api.delete('/groups/:id', deleteGroup)
+api.patch('/groups/join/:id', joinGroup)
+api.patch('/groups/leave/:id', leaveGroup)
+
 
 
 
