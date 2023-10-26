@@ -1,4 +1,6 @@
 import PostsModel from "../models/posts.js";
+import PostCommentsModel from '../models/postComments.js'
+
 
 
 export const getAllPosts = async (req, res) => {
@@ -133,6 +135,26 @@ export const setLikePost = async (req, res) => {
     } catch (err) {
         res.status(404).json({
             message: err.message
+        })
+    }
+}
+
+export const getAllPostComments = async (req, res) => {
+    try {
+        const postId = req.params.id
+
+        let filter = {
+            postId: postId
+        }
+
+        const postComments = await PostCommentsModel.find(filter)
+
+        res.json(postComments)
+
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            message: 'Не удалось получить comment`ы post`a'
         })
     }
 }

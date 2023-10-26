@@ -35,7 +35,10 @@ export const getMyRequest = async (req, res) => {
 export const addRequest = async (req, res) => {
     try {
 
-        const request = await RequestModel(req.body)
+        const creatorId = req.userId
+        const body = { ...req.body, creatorId }
+
+        const request = await RequestModel(body)
 
         await request.save()
 

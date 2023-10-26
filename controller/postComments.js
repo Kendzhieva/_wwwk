@@ -1,7 +1,7 @@
 import PostCommentsModel from '../models/postComments.js'
 
 
-export const getAllPostComments = async (req, res) => {
+export const getAllPostsComments = async (req, res) => {
     try {
         let filter = {
             // isActivated: true
@@ -18,7 +18,7 @@ export const getAllPostComments = async (req, res) => {
     } catch (err) {
         console.log(err)
         res.status(500).json({
-            message: 'Не удалось получить comment`ы post'
+            message: 'Не удалось получить comment`ы post`oв'
         })
     }
 }
@@ -41,9 +41,9 @@ export const getOnePostComment = async (req, res) => {
 export const addPostComment = async (req, res) => {
     try {
 
-        // const creatorId = req.userId
-        // const body = { ...req.body, creatorId }
-        const comment = await PostCommentsModel(req.body)
+        const creatorId = req.userId
+        const body = { ...req.body, creatorId }
+        const comment = await PostCommentsModel(body)
         await comment.save()
 
         res.json(comment)

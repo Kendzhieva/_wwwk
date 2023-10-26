@@ -6,7 +6,9 @@ const usersSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    avatar: String,
+    avatar: {
+        type: String,
+    },
     images: {
         type: Array,
         default: []

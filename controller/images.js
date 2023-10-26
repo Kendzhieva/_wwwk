@@ -26,7 +26,10 @@ export const getAllImages = async (req, res) => {
 export const addImage = async (req, res) => {
     try {
 
-        const image = await ImagesModel(req.body)
+        const creatorId = req.userId
+        const body = { ...req.body, creatorId }
+
+        const image = await ImagesModel(body)
         await image.save()
 
         res.json({

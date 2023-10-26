@@ -13,10 +13,12 @@ import multer from 'multer'
 import uploudFile from "./services/uploudFile.js";
 import { v2 as cloudinary } from 'cloudinary';
 import { addImage, deleteImages, getAllImages, setLikeImage } from './controller/images.js';
-import { addPost, changeOnePost, deletePost, getAllPosts, getAllPostsGroup, getOnePost, setLikePost } from './controller/posts.js';
-import { addPostComment, changePostComment, deletePostComment, getAllPostComments, getOnePostComment, setLikePostComment } from './controller/postComments.js';
+import { addPost, changeOnePost, deletePost, getAllPostComments, getAllPosts, getAllPostsGroup, getOnePost, setLikePost } from './controller/posts.js';
+import { addPostComment, changePostComment, deletePostComment, getAllPostsComments, getOnePostComment, setLikePostComment } from './controller/postComments.js';
 import { addRequest, callRequest, getMyInvite, getMyRequest } from './controller/request.js';
 import { changeGroup, createGroup, deleteGroup, getAllGroups, getGroupInfo, joinGroup, leaveGroup } from './controller/groups.js';
+import { createChat } from './controller/chat.js';
+import { sendMessage } from './controller/message.js';
 
 const api = express()
 dotenv.config()  // Функция - для доступа к env файлам
@@ -73,7 +75,7 @@ api.patch('/users/friend/:id', deleteFriend)
 
 // images
 api.get('/images', getAllImages)
-api.post('/images', addImage)
+api.post('/images', checkAuth, addImage)
 api.delete('/images/:id', deleteImages)
 api.patch('/images/like/:id', setLikeImage)
 
@@ -85,17 +87,19 @@ api.post('/posts', checkAuth, addPost)
 api.patch('/posts/:id', changeOnePost)
 api.delete('/posts/:id', deletePost)
 api.patch('/posts/like/:id', setLikePost)
+api.get('/posts/comment/:id', getAllPostComments)
+
 
 // posts comment
-api.get('/comment', getAllPostComments)
+api.get('/comment', getAllPostsComments)
 api.get('/comment/:id', getOnePostComment)
-api.post('/comment', addPostComment)
+api.post('/comment', checkAuth, addPostComment)
 api.patch('/comment/:id', changePostComment)
 api.delete('/comment/:id', deletePostComment)
 api.patch('/comment/like/:id', setLikePostComment)
 
 //request
-api.post('/request', addRequest)
+api.post('/request', checkAuth, addRequest)
 api.get('/my/request/:id', getMyRequest)
 api.get('/my/invite/:id', getMyInvite)
 api.patch('/call/request/:id', callRequest)
@@ -108,6 +112,13 @@ api.patch('/groups/:id', changeGroup)
 api.delete('/groups/:id', deleteGroup)
 api.patch('/groups/join/:id', joinGroup)
 api.patch('/groups/leave/:id', leaveGroup)
+
+//chat
+api.post('/chat', createChat)
+
+//message
+api.post('/message', sendMessage)
+
 
 
 

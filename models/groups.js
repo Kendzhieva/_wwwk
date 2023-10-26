@@ -7,6 +7,7 @@ const groupsSchema = new mongoose.Schema({
     },
     creatorId: {
         type: String,
+        required: true,
     },
     description: {
         type: String,
