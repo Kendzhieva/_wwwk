@@ -17,7 +17,7 @@ import { addPost, changeOnePost, deletePost, getAllPostComments, getAllPosts, ge
 import { addPostComment, changePostComment, deletePostComment, getAllPostsComments, getOnePostComment, setLikePostComment } from './controller/postComments.js';
 import { addRequest, callRequest, getMyInvite, getMyRequest } from './controller/request.js';
 import { changeGroup, createGroup, deleteGroup, getAllGroups, getGroupInfo, joinGroup, leaveGroup } from './controller/groups.js';
-import { createChat } from './controller/chat.js';
+import { createChat, getAllChats } from './controller/chat.js';
 import { sendMessage } from './controller/message.js';
 
 const api = express()
@@ -115,6 +115,7 @@ api.patch('/groups/leave/:id', leaveGroup)
 
 //chat
 api.post('/chat', createChat)
+api.get('/chat', checkAuth, getAllChats)
 
 //message
 api.post('/message', sendMessage)
