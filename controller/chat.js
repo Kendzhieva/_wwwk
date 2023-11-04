@@ -47,7 +47,7 @@ export const getAllChats = async (req, res) => {
 
     } catch (err) {
         res.status(404).json({
-            message: `не удалось создать чатик ${err.message}`
+            message: `не удалось получить чатик ${err.message}`
         })
     }
 }

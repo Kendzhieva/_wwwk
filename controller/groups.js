@@ -4,14 +4,21 @@ import GroupsModels from "../models/groups.js";
 export const getAllGroups = async (req, res) => {
     try {
         let filter = {
-            // isActivated: true
+
         }
+
+        let groups = null
+
 
         if (req.query.creatorId) {
             filter.creatorId = req.query.creatorId
         }
 
-        let groups = await GroupsModels.find(filter)
+        if (req.query.limit) {
+            groups = await GroupsModels.find(filter).limit(parseInt(req.query.limit))
+        } else {
+            groups = await GroupsModels.find(filter)
+        }
 
         res.json(groups)
 
@@ -105,9 +112,10 @@ export const joinGroup = async (req, res) => {
         const groupId = req.params.id
         const group = await GroupsModels.findById(groupId)
 
+        const userId = req.userId
 
         await GroupsModels.findByIdAndUpdate(groupId, {
-            members: [...group.members, { userId: req.body.userId, role: "follower" }]
+            members: [...group.members, { userId: userId, role: "follower" }]
         })
 
         res.json({
@@ -130,9 +138,11 @@ export const leaveGroup = async (req, res) => {
         const groupId = req.params.id
         const group = await GroupsModels.findById(groupId)
 
+        const userId = req.userId
+
 
         await GroupsModels.findByIdAndUpdate(groupId, {
-            members: group.members.filter(item => item.userId !== req.body.userId)
+            members: group.members.filter(item => item.userId !== userId)
         })
 
         res.json({

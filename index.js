@@ -18,7 +18,7 @@ import { addPostComment, changePostComment, deletePostComment, getAllPostsCommen
 import { addRequest, callRequest, getMyInvite, getMyRequest } from './controller/request.js';
 import { changeGroup, createGroup, deleteGroup, getAllGroups, getGroupInfo, joinGroup, leaveGroup } from './controller/groups.js';
 import { createChat, getAllChats } from './controller/chat.js';
-import { sendMessage } from './controller/message.js';
+import { changeMessages, deleteMessage, getAllMessages, sendMessage } from './controller/message.js';
 
 const api = express()
 dotenv.config()  // Функция - для доступа к env файлам
@@ -110,8 +110,8 @@ api.get('/groups/:id', getGroupInfo)
 api.post('/groups', checkAuth, createGroup)
 api.patch('/groups/:id', changeGroup)
 api.delete('/groups/:id', deleteGroup)
-api.patch('/groups/join/:id', joinGroup)
-api.patch('/groups/leave/:id', leaveGroup)
+api.patch('/groups/join/:id', checkAuth, joinGroup)
+api.patch('/groups/leave/:id', checkAuth, leaveGroup)
 
 //chat
 api.post('/chat', createChat)
@@ -119,6 +119,11 @@ api.get('/chat', checkAuth, getAllChats)
 
 //message
 api.post('/message', sendMessage)
+api.get('/message/:chatId', getAllMessages)
+api.patch('/message/:messageId', changeMessages)
+api.delete('/message/:messageId', deleteMessage)
+
+
 
 
 
